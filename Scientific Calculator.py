@@ -31,6 +31,12 @@ st.markdown("""
         background-color: #555;
         border-color: #888;
     }
+    input[disabled] {
+        color: #00FFAA !important;
+        font-weight: bold;
+        font-size: 22px;
+        text-align: right;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -57,32 +63,4 @@ def backspace():
 def evaluate():
     expr = st.session_state.expression
     try:
-        # Replace math functions with python equivalents
         expr = expr.replace("^", "**")
-        expr = expr.replace("π", str(math.pi))
-        expr = expr.replace("e", str(math.e))
-        expr = expr.replace("√", "math.sqrt")
-        result = eval(expr, {"__builtins__": None}, math.__dict__)
-        st.session_state.history.append(f"{st.session_state.expression} = {result}")
-        st.session_state.expression = str(result)
-    except Exception:
-        st.session_state.expression = "Error"
-
-# -----------------------------
-# Display
-# -----------------------------
-st.markdown("## 🧮 Casio FX-991 Scientific Calculator")
-
-# Display screen
-st.text_input("Display", value=st.session_state.expression, key="display", disabled=True)
-
-# -----------------------------
-# Button Layout
-# -----------------------------
-buttons = [
-    ["(", ")", "π", "e", "C"],
-    ["7", "8", "9", "/", "sin("],
-    ["4", "5", "6", "*", "cos("],
-    ["1", "2", "3", "-", "tan("],
-    ["0", ".", "^", "+", "="],
-    ["log(", "ln(", "√(",]()
